@@ -23,13 +23,15 @@ class RestaurantFinderBloc
       yield RestaurantLoadingState();
 
       try {
-        var useLatLong = event.cityName != null ? true : false;
+        var useLatLong = event.cityName == null ? true : false;
 
         var cityInfo = await this.repository.getCityByName(
             useLatLong, event.cityName, event.longitude, event.latitude);
 
         var restaurants = await this.repository.getRestaurantList(useLatLong,
             int.parse(cityInfo.id), event.longitude, event.latitude);
+
+        if (event.completer != null) event.completer.complete();
 
         yield SuccessLoadRestaurant(restaurants: restaurants);
       } on RepositoryException catch (_) {

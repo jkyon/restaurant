@@ -3,12 +3,11 @@ import 'package:restaurant_finder/src/components/widgets/form_card.dart';
 import 'package:restaurant_finder/src/components/widgets/input_text_form_field.dart';
 import 'package:restaurant_finder/src/containers/view_models/user_view_models.dart';
 
-import 'widgets/dialogs.dart';
-import 'widgets/row_raised_button.dart';
+import '../widgets/dialogs.dart';
+import '../widgets/row_raised_button.dart';
 
 class CreateUserForm extends StatefulWidget {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  static final ValueKey _userKey = new Key("userKey");
 
   final Function(UserViewModel userViewModel) onSave;
 

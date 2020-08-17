@@ -22,14 +22,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       yield InitialCreatingUserState();
     }
     if (event is CreateUserEvent) {
-      yield* _CreateUser(event.user);
+      yield* _createUser(event.user);
     }
     if (event is LoginUserEvent) {
       yield* _loginUser(event.userName, event.password);
     }
   }
 
-  Stream<LoginState> _CreateUser(User user) async* {
+  Stream<LoginState> _createUser(User user) async* {
     yield CreatingUserState();
 
     try {

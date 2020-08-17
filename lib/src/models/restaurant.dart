@@ -17,10 +17,10 @@ class Restaurant extends Equatable {
     var healthCollection = List<Restaurant>();
     for (var item in json["restaurants"]) {
       healthCollection.add(Restaurant(
-          id: item["id"],
-          name: item["name"],
-          city: item["location"]["city"],
-          address: item["location"]["address"]));
+          id: item["restaurant"]["id"],
+          name: item["restaurant"]["name"],
+          city: item["restaurant"]["location"]["city"],
+          address: item["restaurant"]["location"]["address"]));
     }
     return healthCollection;
   }

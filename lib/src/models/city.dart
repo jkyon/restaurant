@@ -13,9 +13,9 @@ class City extends Equatable {
 
   static City fromJson(dynamic json) {
     return City(
-      id: json['id'],
+      id: json['id'].toString(),
       name: json['name'],
-      countryId: json['countryId'],
+      countryId: json['countryId'].toString(),
       countryName: json['countryName'],
     );
   }

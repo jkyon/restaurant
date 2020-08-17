@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'widgets/form_card.dart';
-import 'widgets/input_text_form_field.dart';
+import '../widgets/form_card.dart';
+import '../widgets/input_text_form_field.dart';
 
 class LoginView extends StatefulWidget {
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

@@ -1,11 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurant_finder/src/blocs/login/login_bloc.dart';
-import 'package:restaurant_finder/src/components/login_view.dart';
-import 'package:restaurant_finder/src/components/user_create_form.dart';
+import 'package:restaurant_finder/src/components/login/login_view.dart';
+import 'package:restaurant_finder/src/components/login/user_create_form.dart';
 import 'package:restaurant_finder/src/components/widgets/Simple_progress_indicator.dart';
+import 'package:restaurant_finder/src/containers/restaurant_container.dart';
 import 'package:restaurant_finder/src/containers/view_models/user_view_models.dart';
 import 'package:restaurant_finder/src/ioc/base_module.dart';
 import 'package:restaurant_finder/src/models/models.dart';
@@ -52,7 +51,7 @@ class _LoginContainerState extends State<LoginContainer> {
           return SimpleProgressIndicator();
         }
         if (state is LoginSuccess) {
-          return _loginView();
+          return RestaurantContainer();
         } else {
           return _loginView();
         }
