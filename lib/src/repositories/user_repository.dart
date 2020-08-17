@@ -28,26 +28,27 @@ class UserRepository {
 
   Future<User> getUser(String userName, String password) async {
     try {
-      await this.databaseManager.open();
-      var fields = ["Id", "Name", "Password", "UserName"];
+      var isOpen = await this.databaseManager.open();
+      if (isOpen) {
+        var fields = ["Id", "Name", "Password", "UserName"];
 
-      var result = await this
-          .databaseManager
-          .getRecord("User", userName, "UserName", fields);
+        var result = await this
+            .databaseManager
+            .getRecord("User", userName, "UserName", fields);
 
-      if (result != null) {
-        var item = result.first;
+        if (result != null) {
+          var item = result.first;
 
-        var user = User(
-          id: item["Id"],
-          name: item["Name"].toString(),
-          userName: item["UserName"].toString(),
-          password: item["Password"].toString(),
-        );
+          var user = User(
+            id: item["Id"],
+            name: item["Name"].toString(),
+            userName: item["UserName"].toString(),
+            password: item["Password"].toString(),
+          );
 
-        return user;
+          return user;
+        }
       }
-
       return User();
     } catch (e) {
       throw e;

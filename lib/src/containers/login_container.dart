@@ -19,7 +19,6 @@ class LoginContainer extends StatefulWidget {
 
 class _LoginContainerState extends State<LoginContainer> {
   LoginBloc _loginBloc = MobileContainer().get<LoginBloc>();
-  Completer<void> _refreshCompleter;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class _LoginContainerState extends State<LoginContainer> {
                     user: User(
                   name: viewModel.name,
                   password: viewModel.password,
-                  userName: viewModel.password,
+                  userName: viewModel.userName,
                 )));
             },
           );
@@ -44,19 +43,30 @@ class _LoginContainerState extends State<LoginContainer> {
           return SimpleProgressIndicator();
         }
         if (state is SuccessCreateUserState) {
-          return LoginView();
+          return _loginView();
         }
         if (state is FailedCreateUserState) {
-          return LoginView();
+          return _loginView();
         }
         if (state is LoginUserProcess) {
           return SimpleProgressIndicator();
         }
         if (state is LoginSuccess) {
-          return LoginView();
+          return _loginView();
         } else {
-          return LoginView();
+          return _loginView();
         }
+      },
+    );
+  }
+
+  Widget _loginView() {
+    return LoginView(
+      onLoginPressed: (String userName, String password, BuildContext context) {
+        _loginBloc..add(LoginUserEvent(userName: userName, password: password));
+      },
+      onCreateUser: () {
+        _loginBloc..add(InitCreateUserEvent());
       },
     );
   }

@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:restaurant_finder/src/containers/login_container.dart';
 import 'package:restaurant_finder/src/dal/dal.dart';
 import 'package:restaurant_finder/src/ioc/base_module.dart';
 
@@ -8,19 +11,16 @@ Future _setAppOrientation() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 }
 
-Future<bool> _startApplication() async {
+Future<Null> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await _setAppOrientation();
-
   await DatabaseManager.moveDatabaseToDocumentDir();
 
   MobileContainer().startModule(AppMobileModule());
 
-  return true;
-}
-
-Future<Null> main() async {
-  _startApplication();
-  runApp(MyApp());
+  runZoned<Future<Null>>(() async {
+    runApp(MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -28,14 +28,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Restaurants',
         theme: ThemeData(
           primarySwatch: Colors.blue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: Container(
-          height: 300,
-          color: Color(0xff615AAB),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('App Restaurants'),
+          ),
+          body: LoginContainer(),
         ));
   }
 }
