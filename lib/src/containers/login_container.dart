@@ -42,25 +42,29 @@ class _LoginContainerState extends State<LoginContainer> {
           return SimpleProgressIndicator();
         }
         if (state is SuccessCreateUserState) {
-          return _loginView();
+          return _loginView("");
         }
         if (state is FailedCreateUserState) {
-          return _loginView();
+          return _loginView(state.errorMessage);
         }
         if (state is LoginUserProcess) {
           return SimpleProgressIndicator();
         }
         if (state is LoginSuccess) {
           return RestaurantContainer();
+        }
+        if (state is LoginFailed) {
+          return _loginView(state.errorMessage);
         } else {
-          return _loginView();
+          return _loginView("");
         }
       },
     );
   }
 
-  Widget _loginView() {
+  Widget _loginView(errorMessage) {
     return LoginView(
+      error: errorMessage,
       onLoginPressed: (String userName, String password, BuildContext context) {
         _loginBloc..add(LoginUserEvent(userName: userName, password: password));
       },

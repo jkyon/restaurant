@@ -4,6 +4,7 @@ import '../widgets/form_card.dart';
 import '../widgets/input_text_form_field.dart';
 
 class LoginView extends StatefulWidget {
+  final String error;
   static final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   static final ValueKey _userKey = new Key("userKey");
   static final ValueKey _passwordKey = new Key("passwordKey");
@@ -13,7 +14,7 @@ class LoginView extends StatefulWidget {
 
   final Function() onCreateUser;
 
-  LoginView({Key key, this.onLoginPressed, this.onCreateUser})
+  LoginView({Key key, this.error, this.onLoginPressed, this.onCreateUser})
       : super(key: key);
 
   @override
@@ -27,10 +28,23 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.error.isNotEmpty) {
+      displaySnack(context).then((success) {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(milliseconds: 3000),
+            backgroundColor: Colors.redAccent,
+            content: Text(widget.error),
+          ),
+        );
+      });
+    }
+
     return Container(
       child: SingleChildScrollView(
         child: Column(
           children: [
+            SizedBox(height: 40),
             Form(
                 key: LoginView._formKey,
                 child: FormCard(children: <Widget>[
@@ -39,7 +53,7 @@ class _LoginViewState extends State<LoginView> {
                     controller: _userController,
                     key: LoginView._userKey,
                     currentText: "",
-                    fieldLabelText: 'USer Name',
+                    fieldLabelText: 'User Name',
                     inputType: TextInputType.text,
                     messageForEmptyField: 'Field is required',
                   ),
@@ -81,7 +95,8 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _loginButton(context) {
     return ButtonTheme(
-      minWidth: 40,
+      minWidth: 300,
+      height: 40,
       child: RaisedButton(
         shape: Theme.of(context).buttonTheme.shape,
         textColor: Theme.of(context).primaryTextTheme.button.color,
@@ -100,7 +115,8 @@ class _LoginViewState extends State<LoginView> {
 
   Widget _createUser() {
     return ButtonTheme(
-      minWidth: 40,
+      minWidth: 300,
+      height: 40,
       child: RaisedButton(
         shape: Theme.of(context).buttonTheme.shape,
         textColor: Theme.of(context).primaryTextTheme.button.color,
@@ -111,5 +127,9 @@ class _LoginViewState extends State<LoginView> {
         },
       ),
     );
+  }
+
+  Future<bool> displaySnack(BuildContext context) async {
+    return true;
   }
 }

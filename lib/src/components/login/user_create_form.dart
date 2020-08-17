@@ -28,11 +28,11 @@ class _CreateUserFormState extends State<CreateUserForm> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 5),
+            SizedBox(height: 20),
             Form(
               key: CreateUserForm._formKey,
               child: FormCard(children: [
-                SizedBox(height: 2),
+                SizedBox(height: 10),
                 InputTextFormField(
                   // key: CreateUserForm._userKey,
                   // currentText: "",
@@ -41,6 +41,7 @@ class _CreateUserFormState extends State<CreateUserForm> {
                   messageForEmptyField: 'field is required',
                   onSave: (v) => _viewModel.name = v,
                 ),
+                SizedBox(height: 10),
                 InputTextFormField(
                   // key: CreateUserForm._userKey,
                   // currentText: "",
@@ -49,6 +50,7 @@ class _CreateUserFormState extends State<CreateUserForm> {
                   messageForEmptyField: 'field is required',
                   onSave: (v) => _viewModel.userName = v,
                 ),
+                SizedBox(height: 10),
                 InputTextFormField(
                   // key: CreateUserForm._userKey,
                   // currentText: "",
@@ -61,12 +63,12 @@ class _CreateUserFormState extends State<CreateUserForm> {
               ]),
             ),
             SizedBox(
-              height: 2,
+              height: 10,
             ),
             RowRaisedButton(
                 mainAxisAlignment: MainAxisAlignment.center,
-                buttonHeight: 80,
-                buttonMinWidth: 88,
+                buttonHeight: 40,
+                buttonMinWidth: 300,
                 text: 'Create',
                 onPressed: _submitForm),
           ],

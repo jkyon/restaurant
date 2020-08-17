@@ -38,7 +38,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ? SuccessCreateUserState(created: result)
           : FailedCreateUserState(errorMessage: "User could not be created!");
     } catch (_) {
-      yield state;
+      yield FailedCreateUserState(errorMessage: "User could not be created!");
       rethrow;
     }
   }
@@ -55,7 +55,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               password: password,
               errorMessage: "Error login the user!");
     } catch (_) {
-      yield state;
+      yield LoginFailed(
+          userName: userName,
+          password: password,
+          errorMessage: "Error login the user!");
+
       rethrow;
     }
   }

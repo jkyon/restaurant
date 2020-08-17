@@ -26,13 +26,17 @@ class _RestaurantListViewState extends State<RestaurantListView> {
             actions: <Widget>[_iconButton()]),
         body: Container(
             padding: new EdgeInsets.all(8.0),
-            child: ListView.builder(
-              itemCount: widget.restaurantData.length,
-              itemBuilder: (BuildContext context, int index) {
-                final item = widget.restaurantData[index];
-                return RetaurantItem(restaurantItem: item);
-              },
-            )));
+            child: widget.restaurantData.length > 0
+                ? ListView.builder(
+                    itemCount: widget.restaurantData.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = widget.restaurantData[index];
+                      return RetaurantItem(restaurantItem: item);
+                    },
+                  )
+                : Center(
+                    child: Text('No data found!'),
+                  )));
   }
 
   Widget _iconButton() {

@@ -28,8 +28,10 @@ class RestaurantFinderBloc
         var cityInfo = await this.repository.getCityByName(
             useLatLong, event.cityName, event.longitude, event.latitude);
 
-        var restaurants = await this.repository.getRestaurantList(useLatLong,
-            int.parse(cityInfo.id), event.longitude, event.latitude);
+        var restaurants = cityInfo.id == null
+            ? List<Restaurant>()
+            : await this.repository.getRestaurantList(useLatLong,
+                int.parse(cityInfo.id), event.longitude, event.latitude);
 
         if (event.completer != null) event.completer.complete();
 

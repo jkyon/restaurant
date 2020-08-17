@@ -56,7 +56,9 @@ class RestaurantRepository extends BaseApiRepository {
         'Content-Type': 'application/json',
         'user-key': 'f3f643ed0de03b5027f2444550fb2fec',
       });
-      return City.fromJson(response["location_suggestions"][0]);
+      return response["location_suggestions"].length > 0
+          ? City.fromJson(response["location_suggestions"][0])
+          : City();
     } on SocketException catch (soEx) {
       throw RepositoryException(
           errorType: ExceptionType.SocketException, message: soEx.message);
